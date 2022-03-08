@@ -1,0 +1,36 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyRunInstanceWithNoTags",
+      "Effect": "Deny",
+      "Action": "ec2:RunInstances",
+      "Resource": [
+        "arn:aws:ec2:*:*:instance/*",
+        "arn:aws:ec2:*:*:volume/*"
+      ],
+      "Condition": {
+        "Null": {
+          "aws:RequestTag/Creator": "true",
+          "aws:RequestTag/Department": "true",
+          "aws:RequestTag/Category": "true"
+        }
+      }
+    },
+    {
+      "Sid": "DenyRDSWithnoCreatorTags",
+      "Effect": "Deny",
+      "Action": "rds",
+      "Resource": [
+        "arn:aws:rds:*:*:*"
+      ],
+      "Condition": {
+        "Null": {
+          "aws:RequestTag/Creator": "true",
+          "aws:RequestTag/Department": "true",
+          "aws:RequestTag/Category": "true"
+        }
+      }
+    }
+  ]
+}
